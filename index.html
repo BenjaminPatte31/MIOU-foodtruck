@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MIOU Food Truck — L'art du burger de qualité. Street-food premium à Cazères. Burgers longs buns, frites fraîches et recettes originales.">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <title>MIOU Food Truck — Burgers Premium & Frites Maison | Cazères</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍔</text></svg>">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:ital,wght@0,400;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS v3 CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'neon': '#d4ff00',
+            'neon-glow': 'rgba(212, 255, 0, 0.15)',
+            'neon-soft': 'rgba(212, 255, 0, 0.06)',
+            'surface': '#0d0d0d',
+            'surface-alt': '#111111',
+            'surface-card': '#161616',
+            'border-subtle': '#1e1e1e',
+            'border-hover': 'rgba(212, 255, 0, 0.2)',
+          },
+          fontFamily: {
+            'body': ['Inter', 'system-ui', 'sans-serif'],
+            'display': ['Outfit', 'Inter', 'sans-serif'],
+          },
+          animation: {
+            'float': 'float 3s ease-in-out infinite',
+            'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+            'fade-in-up-delay-1': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards',
+            'fade-in-up-delay-2': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards',
+            'fade-in-up-delay-3': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards',
+            'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(6px)' },
+            },
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { boxShadow: '0 0 20px rgba(212, 255, 0, 0.1)' },
+              '50%': { boxShadow: '0 0 40px rgba(212, 255, 0, 0.2)' },
+            },
+          },
+        },
+      },
+    }
+  </script>
+
+  <style type="text/tailwindcss">
+    /* --- Base layer overrides --- */
+    @layer base {
+      ::selection {
+        @apply bg-neon text-black;
+      }
+
+      body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* Scrollbar styling */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #000;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #222;
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #444;
+      }
+    }
+
+    /* --- Component layer --- */
+    @layer components {
+      /* Nav link underline effect */
+      .nav-link-underline {
+        @apply relative;
+      }
+      .nav-link-underline::after {
+        content: '';
+        @apply absolute bottom-0 left-0 w-0 h-[1px] bg-neon transition-all duration-300;
+        transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .nav-link-underline:hover::after {
+        @apply w-full;
+      }
+
+      /* Scroll reveal */
+      .reveal {
+        @apply opacity-0 translate-y-8;
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .reveal.visible {
+        @apply opacity-100 translate-y-0;
+      }
+      .reveal-delay-1 { transition-delay: 0.12s; }
+      .reveal-delay-2 { transition-delay: 0.24s; }
+      .reveal-delay-3 { transition-delay: 0.36s; }
+
+      /* Neon glow on hover */
+      .glow-hover {
+        transition: box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .glow-hover:hover {
+        box-shadow: 0 0 40px rgba(212, 255, 0, 0.2), 0 0 80px rgba(212, 255, 0, 0.06);
+        transform: translateY(-2px);
+      }
+
+      /* Instagram grid placeholder shimmer */
+      .shimmer {
+        background: linear-gradient(110deg, #1a1a1a 30%, #222 50%, #1a1a1a 70%);
+        background-size: 200% 100%;
+        animation: shimmer 2.5s ease-in-out infinite;
+      }
+      @keyframes shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-black text-white font-body antialiased overflow-x-hidden">
+
+  <!-- =============================================
+       HEADER / NAVIGATION
+       ============================================= -->
+  <header id="header" class="fixed top-0 left-0 right-0 z-50 h-[72px] flex items-center border-b border-border-subtle bg-black/60 backdrop-blur-xl backdrop-saturate-[1.8] transition-colors duration-500">
+    <div class="w-full max-w-6xl mx-auto px-5 flex items-center justify-between">
+
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-3 group" aria-label="MIOU Food Truck — Accueil" id="logo-link">
+        <img src="logo.png" alt="MIOU Food Truck" class="h-11 w-auto transition-opacity duration-300 group-hover:opacity-80">
+      </a>
+
+      <!-- Mobile Toggle -->
+      <button id="menu-toggle" class="lg:hidden flex flex-col gap-[5px] p-2 z-[60]" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span class="block w-[22px] h-[1.5px] bg-white transition-all duration-300 origin-center" id="bar1"></span>
+        <span class="block w-[22px] h-[1.5px] bg-white transition-all duration-300 origin-center" id="bar2"></span>
+        <span class="block w-[22px] h-[1.5px] bg-white transition-all duration-300 origin-center" id="bar3"></span>
+      </button>
+
+      <!-- Navigation -->
+      <nav id="nav-group" class="
+        lg:flex lg:items-center lg:gap-8
+        fixed lg:static
+        top-0 right-0 lg:right-auto
+        w-full lg:w-auto
+        h-screen lg:h-auto
+        flex-col lg:flex-row
+        items-center justify-center
+        gap-8
+        bg-black/95 lg:bg-transparent
+        backdrop-blur-xl lg:backdrop-blur-none
+        translate-x-full lg:translate-x-0
+        transition-transform duration-500
+        z-50
+        hidden lg:flex
+      " role="navigation" aria-label="Navigation principale">
+
+        <a href="#concept" class="nav-link-underline text-sm font-medium text-white/50 hover:text-white transition-colors duration-300 tracking-wide pb-1 lg:text-[0.8125rem]" id="nav-concept">
+          Le Concept
+        </a>
+        <a href="#menu" class="nav-link-underline text-sm font-medium text-white/50 hover:text-white transition-colors duration-300 tracking-wide pb-1 lg:text-[0.8125rem]" id="nav-commander">
+          Commander
+        </a>
+        <a href="#menu" class="inline-flex items-center text-neon border border-neon rounded-full px-5 py-2 text-[0.8125rem] font-semibold tracking-wider uppercase transition-all duration-300 hover:bg-neon hover:text-black hover:shadow-[0_0_30px_rgba(212,255,0,0.15)]" id="btn-menu">
+          Voir le Menu
+        </a>
+      </nav>
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- =============================================
+         HERO SECTION
+         ============================================= -->
+    <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center text-center px-5 pt-[calc(72px+3rem)] pb-16 bg-black overflow-hidden" aria-label="Accueil">
+
+      <!-- Subtle radial glow -->
+      <div class="absolute top-[30%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-[radial-gradient(circle,rgba(212,255,0,0.03)_0%,transparent_70%)] pointer-events-none" aria-hidden="true"></div>
+
+      <!-- Grain overlay -->
+      <div class="absolute inset-0 opacity-[0.015] pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');" aria-hidden="true"></div>
+
+      <div class="relative z-10 max-w-4xl">
+
+        <h1 class="font-display text-[clamp(2.25rem,7.5vw,5.25rem)] font-extrabold leading-[1.02] tracking-[-0.03em] mb-5 opacity-0 animate-fade-in-up">
+          <span class="text-neon" style="text-shadow: 0 0 50px rgba(212,255,0,0.15);">MIOU.</span><br>
+          L'ART DU BURGER<br>
+          DE QUALITÉ.
+        </h1>
+
+        <p class="text-[clamp(0.9rem,1.8vw,1.125rem)] text-white/50 max-w-lg mx-auto mb-10 leading-relaxed opacity-0 animate-fade-in-up-delay-1">
+          Street-food premium à Cazères.<br>
+          Éveillez vos papilles.
+        </p>
+
+        <a href="#menu" class="inline-flex items-center gap-2 bg-neon text-black font-bold text-sm tracking-wider uppercase rounded-full px-8 py-4 glow-hover animate-pulse-glow opacity-0 animate-fade-in-up-delay-2" id="btn-hero-cta">
+          Commander
+          <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+        </a>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/25 text-[0.625rem] tracking-[0.15em] uppercase animate-float max-sm:hidden" aria-hidden="true">
+        <span>Scroll</span>
+        <div class="w-px h-8 bg-gradient-to-b from-white/25 to-transparent"></div>
+      </div>
+    </section>
+
+
+    <!-- =============================================
+         LE CONCEPT
+         ============================================= -->
+    <section id="concept" class="relative bg-surface py-24 sm:py-32 px-5" aria-label="Le Concept">
+
+      <!-- Top accent line -->
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-14 h-[2px] bg-neon/40" aria-hidden="true"></div>
+
+      <div class="max-w-6xl mx-auto">
+
+        <!-- Section label -->
+        <div class="text-center mb-16 reveal">
+          <span class="text-[0.6875rem] font-semibold tracking-[0.2em] uppercase text-neon/70">Notre Philosophie</span>
+          <h2 class="font-display text-[clamp(1.75rem,4vw,3rem)] font-bold tracking-tight mt-3">Le Concept</h2>
+        </div>
+
+        <!-- 2-column grid -->
+        <div class="grid md:grid-cols-2 gap-5">
+
+          <!-- Card 1 -->
+          <div class="group bg-surface-card rounded-xl border border-border-subtle p-8 sm:p-10 transition-all duration-500 hover:border-border-hover hover:shadow-[0_8px_50px_rgba(0,0,0,0.5)] reveal" id="card-terroir">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-9 h-9 rounded-lg bg-neon/10 flex items-center justify-center text-neon text-lg" aria-hidden="true">🌿</div>
+              <span class="text-[0.625rem] font-semibold tracking-[0.15em] uppercase text-neon/60">Terroir & Voyage</span>
+            </div>
+            <h3 class="font-display text-xl sm:text-2xl font-bold tracking-tight mb-4 leading-snug">
+              Produits du Terroir,<br>
+              <span class="text-white/60">Spécialités d'Ailleurs.</span>
+            </h3>
+            <p class="text-sm text-white/45 leading-[1.85]">
+              Des burgers pains longs signatures, une friteuse à gaz dédiée à des frites croustillantes et un menu évolutif pour vous faire voyager.
+            </p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="group bg-surface-card rounded-xl border border-border-subtle p-8 sm:p-10 transition-all duration-500 hover:border-border-hover hover:shadow-[0_8px_50px_rgba(0,0,0,0.5)] reveal reveal-delay-1" id="card-specialites">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-9 h-9 rounded-lg bg-neon/10 flex items-center justify-center text-neon text-lg" aria-hidden="true">🔥</div>
+              <span class="text-[0.625rem] font-semibold tracking-[0.15em] uppercase text-neon/60">Signatures</span>
+            </div>
+            <h3 class="font-display text-xl sm:text-2xl font-bold tracking-tight mb-4 leading-snug">
+              Nos Spécialités<br>
+              <span class="text-white/60">Longs Buns.</span>
+            </h3>
+            <p class="text-sm text-white/45 leading-[1.85]">
+              Burger du terroir au cream cheese, effiloché de viande du Gers mijoté 16h, Quesadillas-Burger : des recettes originales cuisinées sous vos yeux.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =============================================
+         MENU TEMPORAIRE
+         ============================================= -->
+    <section id="menu" class="relative bg-black py-24 sm:py-32 px-5" aria-label="Le Menu">
+
+      <!-- Top accent line -->
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-14 h-[2px] bg-neon/40" aria-hidden="true"></div>
+
+      <div class="max-w-6xl mx-auto">
+
+        <!-- Section label -->
+        <div class="text-center mb-16 reveal">
+          <span class="text-[0.6875rem] font-semibold tracking-[0.2em] uppercase text-neon/70">La Carte</span>
+          <h2 class="font-display text-[clamp(1.75rem,4vw,3rem)] font-bold tracking-tight mt-3">Le Menu</h2>
+        </div>
+
+        <!-- 2-column grid -->
+        <div class="grid md:grid-cols-2 gap-5">
+
+          <!-- Menu Card 1 — Riviera -->
+          <div class="relative bg-surface-card rounded-xl border border-border-subtle overflow-hidden transition-all duration-500 hover:border-border-hover hover:shadow-[0_8px_50px_rgba(0,0,0,0.5)] reveal" id="card-riviera">
+            <!-- Neon top accent -->
+            <div class="h-[2px] bg-gradient-to-r from-transparent via-neon/50 to-transparent" aria-hidden="true"></div>
+            <div class="p-8 sm:p-10">
+              <span class="inline-block text-[0.5625rem] font-bold tracking-[0.15em] uppercase text-black bg-neon rounded px-2 py-0.5 mb-4">Signature</span>
+              <h3 class="font-display text-xl sm:text-2xl font-bold tracking-tight mb-2">Formule Long Bun Riviera</h3>
+              <p class="text-sm text-white/45 leading-[1.85] mb-6">
+                Cream cheese, jambon cru du terroir, roquette, basilic — un voyage méditerranéen en un seul bun.
+              </p>
+              <div class="flex items-center gap-4 pt-5 border-t border-border-subtle">
+                <span class="font-display text-3xl font-extrabold text-neon tracking-tight">8 €</span>
+                <span class="text-xs text-white/35 leading-snug">
+                  Formule complète<br>Long Bun + Frites Fraîches + Boisson
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Menu Card 2 — Voyage -->
+          <div class="relative bg-surface-card rounded-xl border border-border-subtle overflow-hidden transition-all duration-500 hover:border-border-hover hover:shadow-[0_8px_50px_rgba(0,0,0,0.5)] reveal reveal-delay-1" id="card-voyage">
+            <div class="h-[2px] bg-gradient-to-r from-transparent via-neon/50 to-transparent" aria-hidden="true"></div>
+            <div class="p-8 sm:p-10">
+              <span class="inline-block text-[0.5625rem] font-bold tracking-[0.15em] uppercase text-black bg-neon rounded px-2 py-0.5 mb-4">Éphémère</span>
+              <h3 class="font-display text-xl sm:text-2xl font-bold tracking-tight mb-2">Le Voyage de la Semaine</h3>
+              <p class="text-sm text-white/45 leading-[1.85] mb-6">
+                Un plat différent chaque semaine, inspiré d'une cuisine du monde. Un nouveau pays, une nouvelle saveur à chaque visite.
+              </p>
+              <div class="flex items-center gap-4 pt-5 border-t border-border-subtle">
+                <span class="text-2xl" aria-hidden="true">🌍</span>
+                <span class="text-xs text-white/35 leading-snug">
+                  Un nouveau pays,<br>une nouvelle saveur à chaque visite.
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =============================================
+         INSTAGRAM SECTION
+         ============================================= -->
+    <section id="instagram" class="relative bg-surface py-24 sm:py-32 px-5" aria-label="Instagram">
+
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-14 h-[2px] bg-neon/40" aria-hidden="true"></div>
+
+      <div class="max-w-6xl mx-auto">
+
+        <!-- Section label -->
+        <div class="text-center mb-12 reveal">
+          <span class="text-[0.6875rem] font-semibold tracking-[0.2em] uppercase text-neon/70">Communauté</span>
+          <h2 class="font-display text-[clamp(1.75rem,4vw,2.5rem)] font-bold tracking-tight mt-3">
+            Suivez-nous
+          </h2>
+          <a href="https://www.instagram.com/mioufood/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 mt-3 text-sm text-neon/70 hover:text-neon transition-colors duration-300" id="insta-link">
+            <!-- Instagram icon -->
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            @mioufood
+          </a>
+        </div>
+
+        <!-- Instagram Grid (6 placeholders) -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 reveal reveal-delay-1">
+          <div class="aspect-square rounded-lg shimmer" aria-label="Photo Instagram à venir"></div>
+          <div class="aspect-square rounded-lg shimmer" style="animation-delay: 0.3s;" aria-label="Photo Instagram à venir"></div>
+          <div class="aspect-square rounded-lg shimmer" style="animation-delay: 0.6s;" aria-label="Photo Instagram à venir"></div>
+          <div class="aspect-square rounded-lg shimmer" style="animation-delay: 0.9s;" aria-label="Photo Instagram à venir"></div>
+          <div class="aspect-square rounded-lg shimmer" style="animation-delay: 1.2s;" aria-label="Photo Instagram à venir"></div>
+          <div class="aspect-square rounded-lg shimmer" style="animation-delay: 1.5s;" aria-label="Photo Instagram à venir"></div>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center mt-10 reveal reveal-delay-2">
+          <a href="https://www.instagram.com/mioufood/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-neon border border-neon/40 rounded-full px-6 py-2.5 text-[0.8125rem] font-semibold tracking-wider uppercase transition-all duration-300 hover:bg-neon hover:text-black hover:border-neon hover:shadow-[0_0_30px_rgba(212,255,0,0.15)]" id="btn-instagram">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            Voir sur Instagram
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- =============================================
+       FOOTER
+       ============================================= -->
+  <footer class="py-12 px-5 text-center bg-black border-t border-border-subtle" role="contentinfo">
+    <div class="font-display text-lg font-extrabold italic text-neon/50 mb-1">MIOU</div>
+    <p class="text-[0.6875rem] text-white/25 tracking-wider">© 2025 MIOU Food Truck — Tous droits réservés. Cazères, France.</p>
+  </footer>
+
+
+  <!-- =============================================
+       SCRIPTS
+       ============================================= -->
+  <script>
+    // --- Mobile Menu ---
+    const toggle = document.getElementById('menu-toggle');
+    const nav = document.getElementById('nav-group');
+    const bar1 = document.getElementById('bar1');
+    const bar2 = document.getElementById('bar2');
+    const bar3 = document.getElementById('bar3');
+
+    toggle.addEventListener('click', () => {
+      const isOpen = nav.classList.contains('translate-x-full') || nav.classList.contains('hidden');
+
+      if (isOpen) {
+        nav.classList.remove('hidden', 'translate-x-full');
+        nav.classList.add('flex', 'translate-x-0');
+        bar1.style.transform = 'translateY(6.5px) rotate(45deg)';
+        bar2.style.opacity = '0';
+        bar3.style.transform = 'translateY(-6.5px) rotate(-45deg)';
+        toggle.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      } else {
+        nav.classList.add('translate-x-full');
+        bar1.style.transform = '';
+        bar2.style.opacity = '';
+        bar3.style.transform = '';
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+        setTimeout(() => {
+          if (nav.classList.contains('translate-x-full')) {
+            nav.classList.add('hidden');
+            nav.classList.remove('flex');
+          }
+        }, 500);
+      }
+    });
+
+    // Close on nav link click (mobile)
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth < 1024) {
+          nav.classList.add('translate-x-full');
+          bar1.style.transform = '';
+          bar2.style.opacity = '';
+          bar3.style.transform = '';
+          document.body.style.overflow = '';
+          setTimeout(() => {
+            nav.classList.add('hidden');
+            nav.classList.remove('flex');
+          }, 500);
+        }
+      });
+    });
+
+
+    // --- Scroll Reveal (IntersectionObserver) ---
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(el => observer.observe(el));
+
+
+    // --- Header scroll effect ---
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.style.backgroundColor = window.scrollY > 60
+        ? 'rgba(0, 0, 0, 0.9)'
+        : 'rgba(0, 0, 0, 0.6)';
+    }, { passive: true });
+  </script>
+
+</body>
+</html>
